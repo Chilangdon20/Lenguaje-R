@@ -4,7 +4,9 @@ Este pequeño repositorio incluye diferentes temas acerca de el lenguaje **R**,c
 
 # Contenido 🧐
 
-* Conceptos Basicos Generales
+* Conceptos Basicos Generales.
+
+* Graficas
 
 
 
