@@ -3,6 +3,7 @@ title: "Graficas"
 author: "Fernando Vazquez"
 date: "4/14/2020"
 output: html_document
+archivo: file:///Users/familiavs/Documents/r-basic-master/Curso/Parte1/Graficas.html
 ---
 
 ```{r setup, include=FALSE}
