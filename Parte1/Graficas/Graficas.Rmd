@@ -1,0 +1,197 @@
+---
+title: "Graficas"
+author: "Fernando Vazquez"
+date: "4/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Graficos con la funcion `plot`
+
+* Con la funcion `plot(x,y)` podemos representar un grafico **basico** de puntos, siendo $x$ & $y$   vectores numericos .
+  - plot(x) = plot(1:length(x),x)
+
+* Cabe mencionar que con `plot(x,funcion)` podemos mandar a dibujar el grafico de una funcion.
+
+# PARAMETROS DE LA FUNCION `PLOT()`
+* `log` - Nos sirve para indicar que queremos el grafico en escala logaritmica.
+* `main("Ttile")` - Nos sirve para ponerle titulo al grafico.
+* `xlab("Etiqueta")` - Sirve para ponerle una etiqueta al eje $X$
+* `ylab("Etiqueta")`- Sirve para ponerle una etiqueta al eje $Y$
+* `pch=n` - Sirve para elegir el simbolo de los puntos.
+*`cex` Sirve para elegir el tamaño de los simbolos.
+* `col= "Color en ingles"`  Nos sirve para elegir el color de lo simbolos.
+* `type` - Sirve para elegir el tipo de grafico que queremos.
+* `p` - Puntos(valores por defecto)
+* `l` - Lineas rectas que unen los putnos
+* `o` - Lineas rectas que unen los puntos pero en este caso **las lineas si traspasan los puntos**
+* `h` - Hisograma de lineas
+* `n` - Para no dibujar puntos.
+* `lty` -Sirve para especificar el tipo de linea.
+  - `"solid:1"` - linea continua
+  -``dashed:2`- linea discontinua
+  - `"dotted:3"`- linea de puntos
+  - `"dotdashed:4"`- linea que alterna puntos y rayas.
+* `lwd` - Sirve para especificar el grosor de las lineas.
+* `xlim `- Sirve para modificar el rango del eje $X$
+* `ylim` - Sirve para modificar el rango del eje $Y$
+* `xaxp` - Sirve para modificar posiciones de las marcas en el eje $X$
+* `yaxp` - Sirve para modifica posiciones de las marcas en el eje $Y$
+
+**EJEMPLO-01**
+
+ ```{r, primer_plot, fig.cap="Grafico basico explicando el uso del plot", fig.align='center'}
+    alumnos = c(1:10)
+    notas = c(10,9,8,9,10,9,8,9,8,10)
+    plot(alumnos,notas)
+    ```
+Si no incorporamos algun vector `y` , `Rr nos va a tomar el parametro `x` como  si fuese el vector de datos `y` 
+```{r}
+plot(3^(1:6))
+```
+
+Si queremos representa una funcion $f(x)$:
+
+```{r}
+f <- function(x){ 3-sqrt(x)^x }
+plot(f)
+```
+
+Si queremos representar una esccala logaritmica.
+
+```{r}
+par(mfrow = c(1,2))
+plot = plot(exp(1:21), xlab = "Indice", ylab = expression(e^{1:21},
+                                                          main = "Escala Lineal",))
+plotLog = plot(exp(1:20), log = "y", xlab = "Index", ylab = expression(e^{1:20}), main = "Escala logaritmica en el eje y",col="red")
+                
+```
+
+# GRAFICA CON PARAMETROS
+```{r}
+n = 1:20
+fib = (1/sqrt(5))*((1+sqrt(5))/2)^n - (1+n/sqrt(5^n))*((1-sqrt(5))/2)^n
+fib
+par(mfrow = c(1,2))
+plot(fib, xlab = "n", ylab= expression(F[n]),col="palegreen3",pch = 20, cex = 2, bg = "black", log = "xy")
+plot(fib, xlab = "n", ylab= expression(F[n]),col="palegreen2",pch = 20, cex = 2, bg = "black", log = "y")
+par(mfrow = c(1,1))
+
+```
+# GRAFICA 02 CON PARAMETROS
+
+```{r}
+par(mfrow = c(3,2))
+x = c(50:59)
+y = c(2,9,25,3,100,56,43,67,64,34)
+plot(x,y, pch = 22, cex = 2 , col="green",type = "p")
+plot(x,y, pch = 20, cex = 2 , col="blue",type = "l")
+plot(x,y, pch = 12, cex = 2 , col="black",type = "b")
+plot(x,y, pch = 7, cex = 2 , col="gold",type = "o")
+plot(x,y, pch = 21, cex = 2 , col="firebrick1",type = "h")
+plot(x,y, pch = 18, cex = 2 , col="red",type = "s")
+par(mfrow = c(1,1))
+```
+
+# GRAFICA 03 CON PARAMETROS
+
+```{r}
+x = (2*(1:20))
+y = (-1)^(1:20)*5*(1:20)
+plot(x,y, main = "Ejemplo de grafico",pch = 12, cex = 2, type = "o",lty = 4, lwd= 4,xaxp=c(0,40,20), yaxp = c(-100,100,8), col = "firebrick")
+```
+#Agregando elementos a un grafico
+
+* `points(x,y)` - Añade un punto de coordenadas $(x,y)$ a un grafico ya exstente
+* `àbline` - Sirve para añadir una recta a un grafico ya existente
+  - `abline(a,b)` - Añade la recta vertical $x=ax+b$ .
+  - `abline(v = x0)` - Añade la recta vercial $x=x0.v$ puede estar asignado a un vector.
+  - `abline(h =  y0)`- Añade la recta horizontal $y=y0.h$ puede estar asigando a un vector.
+  
+# Agregando puntos y rectas
+```{r}
+x = (2*(1:20))
+y = (-1)^(1:20)*5*(1:20)
+plot(x,y, main = "Poniendo un punto y una recta",pch = 12, cex = 2, type = "o",lty = 4, lwd= 4,xaxp=c(0,40,2), yaxp = c(-100,100,8))
+
+points(20,0, col = "blue", cex = 4, pch=16)
+abline (h = 0, lty = 2, col = "dodgerblue")
+```
+  
+#Ejemplo
+```{r}
+f <- function(x){
+  x^2-2*x + sqrt(abs(x))
+}
+plot(f, xlim = c(-3,3))
+points(0,0, pch= 19)
+points(-3:3, (-3:3)^2,col = "blue")
+abline(2,3,lty = "dashed", col = "orange")
+abline(v=2, lty = "dotted", col= "green")
+abline(h=5,lty = "dotdash",col="pink" ) 
+```
+# Añadir texto a nuestro grafico
+*`text(x,y,labels= "...")`- Añade en el punto de cordenadas $(x,y)$ el texto especificado como argumento de labels
+ - `pos`- Permite indicar la posicion del texto alrededor de las coordenadas **IMPORTANTE**
+   - 1 = Abajo
+   - 2 = Izquierda
+   - 3 = Arriba
+   - 4 = Derecha
+   - 5 = Izquierda
+   
+# EJEMPLO
+
+```{r}
+
+users = c(1:10)
+time = c(7,4,8,5,7,9,4,5,7,4)
+plot(users,time, main = "Grafico con texto",col = "red")
+text(users,time, labels = c("Mex","EUA","COL","RUS","CAN","Suiz","ENG","POR","F","ARG"),
+pos = c(rep(3,times=8),1,3))
+
+```
+
+# EJEMPLO:
+```{r}
+x = c(5*(1:20))
+plot(x,c(exp(-x)+(-1)^x*x/2*sin(x)^2))
+lines(c(20,10,40,80,50,30,30),c(20,0,-20,-30,30,0,5),lwd = 2,col = "blue")
+curve(20*sin(x), add = TRUE , col = "blue")
+```
+
+# Leyendas de valores
+* `legend(posicion, legend = ...)`para añadir una leyenda
+*`legend`- Contiene el valor de una leyenda
+
+#Ejemplo
+```{r}
+x = seq(0,2*pi,0.1)
+plot(x,sin(x),type ="l",col="blue",lwd=3,xlab="",ylab="")
+lines(x,cos(x),col="blue",lwd=3)
+lines(x,tan(x), col = "purple",lwd=3)
+legend("bottomleft",col=c("blue","green","purple"), legend=c("Sin","Cos","Tan"),lwd=3,bty="l")
+
+```
+
+# Segementos,flechas,simbolos y poligonos
+
+* `segments` - Sirve para añadir segmentos a un grafico existente
+* `arrows` - Sirve para aadir flechas a un grafico existente
+* `symbols` -S irve para añadir simbolos  a un grafico
+* `polygon`- Sirve para añadir poligonos cerrados especificando sus vertices a un grado existente
+
+# EJEMPLO
+
+```{r}
+x = c(6*(1:50))
+plot(x,c(exp(-x)+(-1)^x*x/2*sin(x)^2), ylab= "",main = "Grafica con varios elemtnos",col = "red")
+segments(10,0,40,0,col= "green", lwd= 6)
+arrows(10,0,40,0,col= "blue", length = 4, angle = 5, code = 3)
+polygon(c(20,30,40),c(-10,50,10), col = "gold", density = 3, angle = 90, lty = 4, lwd=5)
+
+
+```
+
