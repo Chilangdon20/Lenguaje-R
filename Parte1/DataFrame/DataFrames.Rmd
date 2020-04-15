@@ -1,0 +1,151 @@
+---
+title: "DatFrames"
+author: "Fernando Vazquez"
+date: "4/15/2020"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# DataFrames
+
+**DEFINICION**:
+Podemos definir un data frame como una tabla de doble entrada , formada por variables en las columnas y observaciones de estas variables en las filas,de manera que cada fila **contiene los valores de las variables para un mismo caso o un mismo individuo**
+
+  * `data()`:
+    Sirve para abrir una ventana con una lista de los objetos de datos a los que tenemos acceso en la     seccion actual de R(**Los que lleva R instalados por defecto y los que nosotros cargemos**)
+    
+    *Si entramos `data(package=.package=.packages(all.avaliable = TRUE))` obtendremos la lista de         todos los objetos de datos a los que tenemos acceso, incluyendo los de los paquetes que tengamos      instalados,pero que no este en la seccion actual.
+    
+# EJEMPLO - DataFrame de Iris
+
+```{r}
+#Hacemos una copia del df para evitar alguna modificacion
+
+df = iris
+df
+```
+
+# Obteniendo informacion de un DatFrame
+
+* `head(d.f,n)` Sirve para mostrar las $n$ primeras filas del df.Por defecto se muestran las primeras 6 filas
+
+* `tail(d.f,n)` Sirve para mostrar las $n$ ultimas filas del df, por defecto muestra las 6 ultimas
+
+* `std(d.f)` Sirve para conocer la estructura global de un dataframe
+
+* `names(d.f)` Sirve para producir un vector con los nombres de la columnas.
+
+* `rownames(df)` Sirve para producir un vector con los identificadores de las filas , cabe mencionar que R entiende siempre que estos identificadores son palabras, aunque sean numeros, de ahi que lo imprime en comillas
+
+* `colnames(df)` Sirve para producir un vector con los identificadores de las columnas.
+
+* `fimnames(df)`Sirve para producir una lista formada por 2 vectores(ID-FILAS,ID.COL)
+
+* `nrow(df)` Sirve para consultar el numero de filas de un df
+
+* `ncol(df)` Sirve para consultar el numero de columnas de un df
+
+* `dim(df)`  Sirve para producir un vector con el numero de filas y columnas
+
+
+# Ejemplo
+```{r}
+
+nrow(df)
+ncol(df)
+dim(df)
+a = df$Petal.Length[1:10]
+a+1
+
+```
+
+
+# SUB DATA FRAMES
+
+* `df[n,m]` Sirve para extraer "trozos" del df por filas y columnas
+
+```{r}
+df[1:10,2:4]
+df[df$Species == "setosa" & df$Sepal.Width > 4, ][c(1:3)]
+```
+
+# CARGAR UN DATASET
+
+* `read.table()` Sirve para definir un df a partir de una tabla de datos contenida en un fichero.
+
+## Parametros
+
+* `header = TRUE` Sirve para indicar si la tabla que importamos tiene una rimera fila conlos nombres de las columnas
+
+* `col.names = c(...)` Sirve para especifcar el nombre de las columnas.
+
+* `sep` Sirve para especificar la separacion que hay entre columnas en el fichero.
+
+* `dec` Sirve para especificar el signo que sepra la parte entera de la decimal
+
+
+
+```{r}
+df = read.csv("/Users/familiavs/Documents/r-basic-master/data/Pokemon.csv",header = FALSE, col.names = c("Total","HP","Defense"),sep = "")
+head(df,8)
+```
+
+
+# Construccion de un dataset
+
+* `data.frame(vector1...vectorn)` Sirve para construir un df a partir de vectores introducidos en el orden en el que queremos disponer las columnas de la tabla
+
+* `rownames` Sirve para especificar los identificadores de las filas
+
+* `stringsAsFactors` Sirve para evitar la transformacion de las columnas de tipo de palabra en factores
+
+# EJEMPLO
+
+```{r}
+Estadistica = c(10,6,8,9,4,5,9,8,7,10)
+Analitica = c(4,7,6,8,9,0,2,6,7,4)
+Probabilidad = c(8,6,9,2,1,3,4,6,1,5)
+grados = data.frame(Est = Estadistica, An = Analitica, Pr = Probabilidad)
+```
+
+#Ejemplo 2
+
+```{r}
+Gender = c('H','H','H','M','H','M','H')
+Age = c(30,20,13,50,90,18,20)
+status = c("S","C","V","S","S","V","C")
+info = data.frame(Gen = Gender,Age = Age,sta=status)
+row.names(info) = c("Fer","Jaun","Maggs","Sai","MOOn","Bere","Rafa")
+info
+```
+
+# Continuacion de la construccion de un dataset
+
+* `fix(df)` Sirve para crear o editar un df con el editor de datos
+
+*`names(df)` Sirve para cambiar los nombres de las variables.
+
+* `rownamed(df)` Sirve para cambiar los identificadores de las filas
+
+* `dimnames(df)= list(vec_nom_file,vec_nom_col)` Sirve para modificar el nombre de las columnas y filas simultaneamente.
+
+# Funciones a DataFrrames
+
+* `sapply(df,funcion)` Sirve para aplicar una funciona  todas las columnas del df
+
+   - `na.rm=TRUE` Sirve para evitar que el valor que devuelva la funcion para as columnas contenga algun valor NA
+
+*  `aggregate(variables-factors,data=df,FUN =funcion)` Sirve para aplicar una funcion a variables de un df clasificadas por los niveles de uno o mas factores
+
+# Ejemplo
+
+
+```{r}
+df = str(iris)
+sapply(subset(iris, select = 1:4),mean)
+```
