@@ -1,0 +1,39 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejercicio:
+
+Se desea saber la opinion de 500 personas que tomaron el curso de **"DATA-MINING"** en la plataforma Udemy, con la pregunta ¿Estas satisfecho con el curso? .A lo cual las personsa tenian que responder con un 1,2,3,4,5 dada la escala ordinal.
+
+```{r}
+#Colocamos una semilla aleatoria.
+set.seed(2020)
+usuarios = sample(1:5, 100, replace = TRUE)
+#Frecuencia Absoluta
+table(usuarios)
+#Frecuencia relativa
+prop.table(table(usuarios))
+
+```
+
+Funcion `cumsum()` para el calculo de frecuencias acomuladas.
+
+```{r}
+fAbs = table(usuarios) #Frec Abs
+fAbs
+cumsum(fAbs) # Frec Abs Acomulada
+cumsum(prop.table(fAbs))#Frecuencias Rel Acomuladas
+```
+
+Creamos un diagrama de barras de las frecuencias absolutas
+
+```{r}
+barplot(fAbs,main = "Diagrama de frecuencias absolutas",col = c("orange","blue"))
+```
+
