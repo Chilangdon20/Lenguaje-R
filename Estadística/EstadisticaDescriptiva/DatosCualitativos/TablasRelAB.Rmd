@@ -1,0 +1,114 @@
+---
+title: "EstudioFrecuencias"
+author: "Fernando Vazquez"
+date: "4/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Estudio de Frecuencias.
+
+ Supongamos que tenemos una variable cualitativa guardada en un vector o un factor
+ 
+```{r}
+#Declaramos x como una muestra aleatoria de lo numero 1:20 de tamaño 12 con reposicion
+x = sample(1:6,size = 12,replace = TRUE) 
+x
+```
+ 
+ Creamos otra variable sacamndo un muestreo aleatoria de los valores si y no,cabe mencionar que como son valores NO ordenados son variables **CUALITATIVAS*+
+ 
+```{r}
+
+Resultado = factor(sample(c("MX","EUA"), size = 12, replace=TRUE))
+
+Resultado
+```
+ 
+ 
+Creamos una tabla de frecuencias absolutas de un vector que representa una variable cualitativa
+
+```{r}
+table(x)
+table(Resultado)
+```
+
+Cabe mencionar que podemos usar las funcinoes de lo df para consultar la informacion
+
+```{r}
+names(table(x))
+names(table(Resultado))
+```
+
+En caso de que la tabla no muestre algun valor tenemos que transformar el vector en un factor
+
+```{r}
+new = factor(x, levels=1:12)
+new
+table(new)
+table(new)[4]
+table(new)["12"]
+sum(table(x))
+sqrt(table(new))
+```
+
+
+
+```{r}
+data = factor(sample(c("MAC","ACT"), size = 10,replace=TRUE))
+table(data)["MAC"]
+```
+
+# TABLA DE FRECUENCIAS RELATIVAS
+
+En este caso vamos a consultar la tabla de frecuencias relativas con la funcion `prop.table` de los datos ya creados.
+
+```{r}
+prop.table(table(data))
+prop.table(table(Resultado))
+```
+
+**IMPORTANTE** Para poder aplicar la funcion `prop.tabe` es necesario incluir la funcion table ya que si no R entendera que la frecuencia absoluta de "n" vector sera la frecuencia absoluta de "n-componente" , aqui un claro ejemplo:
+
+```{r}
+prop.table(x)
+prop.table((table(x)))
+
+```
+
+**TAMBIEN PODEMOS CREAR LA TABLA DE FRECUENCIAS RELATIVAS A MANO**
+```{r}
+fr = table(x)/length(x)
+fr
+```
+
+Tambien podemos consultar cuantas veces a aparecido un nivel en nuestro df
+
+
+```{r}
+names(which(table(x)==2))
+```
+
+Podemos consultar la moda de nuestros datos:
+```{r}
+names(which(table(x)==max(table(x))))
+names(which(table(data)==max(table(data))))
+```
+
+## PEQUEÑO EJERCICIO
+
+```{r}
+M = c(rep("M",length.ouut=14))
+H = c(rep("H",length.out=6))
+t = factor(sample(c(M,H)))      
+table(t)
+prop.table(table(t))
+names(which(table(t)==max(table(t))))
+names(table(t))
+
+
+```
+

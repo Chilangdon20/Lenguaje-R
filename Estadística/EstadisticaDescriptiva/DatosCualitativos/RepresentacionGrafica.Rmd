@@ -1,0 +1,59 @@
+---
+title: "TablasApartirVC"
+author: "Fernando Vazquez"
+date: "4/16/2020"
+output: pdf_document
+---
+
+# Tablas apartir de dataframes de variables cualitativas
+
+```{r}
+info = read.table("/Users/familiavs/Documents/r-basic-master/data/EnergyDrink", header = TRUE)
+summary(info)
+```
+
+#Tabla de frecuencias absolutas para cada una de las variables
+```{r}
+apply(info,MARGIN = 2,FUN = table)#Podemos observar que es una lista y esto nos indica que podemos acceder a sus atributos
+
+apply(info,MARGIN = 2,FUN = table)$Sexo
+##Accedemos a sus atributos.
+prop.table(table(Respuestas),margin = 1)
+table(info$estudio)
+```
+# DIAGRAMA DE BARRAS
+
+Es el mas usado para representar variables cualitativas, ya que eston contiene cada nivel de la variab le cualitativa una barra de sualtura de fecuencia, veamos como podemos implementarla:
+
+```{r}
+barplot(table(sexo),col=c("green","blue"),main="Diagrama de barras de las variables estudiante.")
+```
+
+```{r}
+barplot(prop.table(table(Respuestas)),main = "Diagrama de barras de frecuencia relativa de la variable Respuestas")
+```
+
+# multiples graficos
+
+```{r}
+par(mfrow=c(1,2))
+barplot(table(sexo),col=c("green"))
+barplot(table(Respuestas),col=c("green","red"))
+```
+
+# Pintamos las barras de forma horizontal
+
+```{r}
+barplot(table(x), horiz = TRUE,col = "pink")
+```
+
+# Tabla Bidimensional
+
+```{r}
+barplot(table(Sexo,Respuestas), legend.text = TRUE)
+```
+
+```{r}
+barplot(table(Sexo,Respuestas), beside=TRUE,names = c("Men","Women"),col=c("Yellow","lightblue"),legend.text = c("No","Yes"))
+```
+

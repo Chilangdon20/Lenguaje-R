@@ -1,0 +1,42 @@
+---
+title: "EJEMPLO"
+author: "Fernando Vazquez"
+date: "4/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Ejemplo Estadistica Multidimensional
+
+```{r}
+ans = sample(c("MAC","ACT"), size = 100,replace = T)
+sex = sample(c("H","M"), size = 100, replace= T)
+dir = sample(c("Neza","Eca","Xoch","Coyo","GAM"),size =100,replace = T)
+ftable(ans,sex,dir)
+
+```
+
+#Filtrado de tablas
+
+```{r}
+table(ans,sex,dir)["MAC","M","Xoch"]
+table(ans,sex,dir)[,"M","Coyo"]
+```
+
+
+#Frcuencias Relativas
+
+```{r}
+prop.table(table(ans,sex,dir))#Frecuencias relativas globales
+prop.table(table(ans,sex,dir),margin=3)#Frecuencia relativa marginal por direccion
+
+prop.table(table(ans,sex,dir),margin=2)#Frecuencia relativa marginal por sexo
+```
+
+```{r}
+ftable(prop.table(table(ans,sex,dir)))
+```
+

@@ -1,0 +1,28 @@
+---
+title: "EJEMPLO-02"
+author: "Fernando Vazquez"
+date: "4/16/2020"
+output: html_document
+---
+
+```{r}
+HairEyeColor
+sum(HairEyeColor) -> total
+
+```
+
+El total de individuos de la tabla de datos es `r.total.
+
+# MARGINAL
+
+```{r}
+prop.table(HairEyeColor, margin = c(1,2))
+```
+# Mejor formato de nuestras tablas 
+
+```{r}
+library(kableExtra)
+kable(prop.table(HairEyeColor, margin = c(1,2)))
+
+```
+

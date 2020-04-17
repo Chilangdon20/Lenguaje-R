@@ -1,0 +1,28 @@
+---
+title: "Datos Cualitativos"
+author: "Fernando Vazquez"
+date: "4/15/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# DATOS CUALITATIVOS
+
+**¿QUE RAYOS SON LOS DATOS CUALITATIVOS?**
+
+Los datos cualitativos corresponden a observaciones sobre cualidades de un objeto o individuo.
+
+Suelen codificarse por medio de palabras, pero tambien se pueden usar numeros que jueguen el papel de etiquetas.
+
+## EJEMPLO
+
+Es habitual representar NO(o falso,fracaso,ausente) con un **0** & SI(verdadero,exito,presente) con un **1**
+
+## Variable cualitativa:
+  Es una variable cualitativa un **lista** de **observaciones de un tipo de datos cualitativos sobre un conjunto concreto de datos.**
+  
+## Niveles:
+ Son diferentes valores que pueden tomar estos datos, por ejemplo la nacionailidad de una persona o la categoria de un videojuego

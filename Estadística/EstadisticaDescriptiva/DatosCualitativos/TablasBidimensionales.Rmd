@@ -1,0 +1,65 @@
+---
+title: "TablasBidimensionales"
+author: "Fernando Vazquez"
+date: "4/16/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tablas Bidimensionales
+
+En este caso vamos a creaar un ejemplo de una tabla bidimensional con 2 vectores como parametros
+
+```{r}
+Respuestas = sample(c("SI","NO"),size = 12,replace = T)
+Sexo = sample(c("H","M"), size = length(Respuestas),replace = T)
+t(table(Sexo,Respuestas))
+```
+Tambien podemos asignar variables en funcion de las mismas o filtrar nuestra informacion
+
+```{r}
+table(Respuestas,Sexo)["SI","M"]
+```
+
+Tabla de frecuencia Bidimensional.
+
+Esta es la **Frecuencia relativa Global**
+
+```{r}
+prop.table(table(Sexo,Respuestas))
+```
+Esta es la **Frecuencia relativa Marginal**
+
+```{r}
+prop.table(table(Sexo,Respuestas),  margin=1) #Con la variable = 1 especificamos a la poblacion que define por fila
+```
+
+
+```{r}
+prop.table(table(Sexo,Respuestas),  margin=2) #Con la variable = 1 especificamos a la poblacion que define por columna
+```
+
+#FUNCION `CORSSTABLE()`
+
+```{r}
+#Cargamos libreria
+library(gmodels)
+sexo = factor(c("H","M","M","M","M","M","M","H"))
+ans = factor(c("S","N","N","S","S","N","S","N"))
+CrossTable(sexo,ans,prop.chisq = FALSE)
+```
+
+
+```{r}
+
+tt  <-  table(sexo,ans)
+tt # frec absol
+prop.table(tt)#frec GLOBAL
+prop.table(tt,margin=1)#frec Por sexo
+prop.table(tt,margin=2)#frec Por respuesta
+apply(tt,FUN = sqrt,MARGIN =c(1,2))
+```
+
