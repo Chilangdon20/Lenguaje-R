@@ -1,4 +1,4 @@
-Untitled
+Analisis de datos Ordinales por Factor
 ================
 
 ## Funcion `cumsum()`
