@@ -1,0 +1,63 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Funcion `cumsum()`
+
+Para que nosotros podamos calcular frecuencias acumuladas en una tabla bidimensional , hay que aplicar la funcion `cumsum()` mediante la funcion `apply()`, la sintaxis seria:
+
+`apply(NameTable,MARGIN=...,FUN = cumsum)`
+
+Donde **MARGIN** es la dimensaino en la que queremos acumular dichas frecuencias, recordemos que con el numero **1** - **FILAS** & numero **2** - **COLUMNAS**-
+
+Ejemplo:
+Queremos saber la opinion de los usuarios acerca de la nueva funcion en facebook del COVID-19,para esto tenemos una nuestra de **80000** personas.Clasificamos estos resultados en :
+  * Excelente
+  * Bueno
+  * Agradable
+  * Conforme
+  * Inconforme
+  
+Supongamos que estas personas proveien de 4 paises diferentes,MX,EUA,CA,ESP, de manera que:
+
+ * 20000 participantes son de Mexico.
+ * 20000 participantes son de Estados Unidos.
+ * 15000 participantes son de Canada.
+ * 25000 participantes son de España.
+ 
+Dicho esto nos interesa estudiar la distribucion de las longuitudes segun la zona.
+
+
+```{r}
+Answers = sample(c("Excelente","Bueno","Agradable","Conforme","Inconforme"), size = 80000,replace = T)
+Paises = rep(c("MX","ESP","EUA","CAN"),c(20000,20000,15000,25000))
+Total = data.frame(Paises,Answers)
+str(Total)
+head(Total)
+```
+
+Realizado lo anterior calculamos las tablas de frecuencias absolutas acumuladas de las longuitudes por paises.
+
+```{r}
+t(apply(table(Total),MARGIN =1,FUN = cumsum))
+```
+
+Ahora calculamos la tabla de frecuencia relativa acomulada por la longuitud de pais
+
+```{r}
+t(apply(prop.table(table(Total),margin =1),MARGIN =1,FUN = cumsum))
+```
+
+Por ultimo vamos a realizar el diagrama de Barras.
+
+```{r}
+Grafico = apply(prop.table(table(Total),margin =1),MARGIN =1,FUN = cumsum)
+
+barplot(Grafico,beside = TRUE,legend = TRUE, main= "Diagrama de frecuencias relativas acomuladas  por paises",
+        args.legend = list(x="topleft",cex=0.55),col=c("red","blue","gold","pink","purple"))
+```
