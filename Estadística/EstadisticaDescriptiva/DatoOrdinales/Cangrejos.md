@@ -3,9 +3,7 @@ title: "Ejercicio de transfoirmacion de datos"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 ## Transformacion de datos Cuantitativos a datos Ordinales.
  Para este ejercicios vamos a considerar el dataframe datacrab y arreglaremos los datos.
