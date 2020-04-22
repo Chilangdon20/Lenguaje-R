@@ -8,6 +8,7 @@ Este pequeño repositorio incluye diferentes temas acerca de el lenguaje **R**,c
 
 * Estadistica
 
+* Algebra
 
 
 ## Comenzando 🚀
