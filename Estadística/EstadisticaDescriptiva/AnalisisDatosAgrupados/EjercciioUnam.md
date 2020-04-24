@@ -1,6 +1,7 @@
 ---
-title: "Untitled"
+title: "EJERCICIO"
 output: github_document
+autor: "Fernando.V.S"
 ---
 
 ```{r setup, include=FALSE}
