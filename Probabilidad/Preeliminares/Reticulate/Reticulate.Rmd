@@ -1,0 +1,76 @@
+---
+title: "Libreria Reticulate."
+author: "Fernando Vazquez"
+date: "5/29/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libreria Reticulate.
+
+Python y R son los dos principales lenguajes de programación en tema de datos. Los dos son geniales y polivalentes y, aunque seguramente tengamos uno preferido, para ciertas cosas siempre hay uno que es mejor. Ya explicamos cómo usar R en Python. Ahora toca aprender a usar Python en R. ¿Te imaginas poder combinar ambos lenguajes en tus ficheros RMarkdown o App Shiny? ¿Te suena bien? 
+
+Reticulate: nunca combinar lenguajes fue tan fácil.
+
+Si en Python usamos rpy2 para usar R, en R tenemos la librería reticualte para usar Python. Por suerte reticulate es mucho más fácil de instalar y usar que rpy2.
+
+
+```{r}
+library(reticulate)   #Habilitamos la libreria reticulate.
+use_python("/opt/anaconda3/bin/python3") #Guardamos la ruta de acceso dond esta python
+os <- import("os")    #Importamos una libreria d epython y la guardamos en R.
+os$listdir(".")       #Con $ accedemos a la funcion de os.
+```
+
+
+### Funciones de Python en R
+
+Con la funcion ```Source_python("NameFncion)``` podemos mandar a llamar una funcion de python en R
+```{r}
+source_python("add.py")
+add(7,9)
+```
+
+### CONVERTIR OBJETOS DE UN LENGUAJE A OTRO.
+
+En caso de que nostros queramos usar una libreria de python con R podemos hacerlo sin ingun problema.En este caso declaramos una variable `np` a la cual le asignamos la libreria `numpy` 
+y declaramos que no haremos una conversion directa sino que nosotros queremos hacerla manualmente.
+
+Declaramos una variable z a la cual le asignamos un array y despues con la funcion `py_to_r`
+convertimos nuestra variable de python a r facilmente.
+
+
+```{r}
+np <- import("numpy",convert = FALSE) #Indicamos que no haremos una converscion directa.
+
+z = np$array(c(1:4))
+sum <- z$cumsum()
+print(sum)
+
+py_to_r(sum)
+```
+
+
+### Consulta de documentcion en ambos lenguajes.
+
+Si nosotros queremos consultar una funcion o libreria lo podemos hacer con la funcion `py_help` en formato R y nos muestra la infroamcion necesaria.
+
+```{r}
+#En python
+py_help(os$chdir)
+#En R
+help("py_to_r")
+```
+
+### ARRAYS.
+
+
+Si nosotros queremos crear un objeto de python en R lo podemos hacer con la funcion `np_array` y lo guardamos con estulo de guardado de C en ugar de fortran.
+```{r}
+a <- np_array(c(1:10),dtype="int",order="C")
+a
+```
+
