@@ -29,6 +29,11 @@ Necesitas tener conociemientos de Matematicas basicas
 * [R-Studio] = https://rstudio.com
 
 
+## Acceder a Mega 🤪
+
+* Link [Mega](https://mega.nz/folder/O5UASYLA#1mDQIIz1qfanVGVvDrRH7A)
+
+
 
 ## Autor. ✒️
 
