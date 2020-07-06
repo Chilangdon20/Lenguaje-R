@@ -1,6 +1,8 @@
 # LENGUAJE R 🧮
 
-Este pequeño repositorio incluye diferentes temas acerca de el lenguaje **R**,con el tiempo lo ire modificando para que te sea de mayor utilidad.
+Este pequeño repositorio incluye diferentes temas acerca de el lenguaje **R**,con el tiempo lo ire modificando para que te sea de mayor utilidad, en especial esta contemplado para personas que esten aprendiendo estadistica en concreto descriptiva y probabilidad, mas adelante subire nuevos temas de estadistica inferencial.
+
+Este repositorio tambien tiene una wiki , de las dudas que tuve mientras estudiaba dichos temas, la puedes encontrar en la seccion de wiki
 
 # Contenido 🧐
 
@@ -25,11 +27,12 @@ Necesitas tener conociemientos de Matematicas basicas
 ## Construido con 🛠️
 
 
-* [R] = https://www.r-project.org
-* [R-Studio] = https://rstudio.com
+* [R](https://www.r-project.org)
+* [R-Studio](https://rstudio.com)
+* [Jupyter Notebook](https://jupyter.org)
 
 
-## Acceder a Mega 🤪
+## Acceder al link de Mega 🤪
 
 * Link [Mega](https://mega.nz/folder/O5UASYLA#1mDQIIz1qfanVGVvDrRH7A)
 
