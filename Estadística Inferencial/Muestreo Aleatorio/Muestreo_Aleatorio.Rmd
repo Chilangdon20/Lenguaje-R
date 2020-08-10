@@ -1,0 +1,216 @@
+---
+title: "Tpos de Muestreo Express"
+author: "Fernando Vazquez"
+date: "8/10/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tipos de muestreo.
+
+## Muestreo aleatorio con reposicion.
+
+Queremos extraer una muestra de 15 bolas , para ello podriamos repetir 15 veces el proceso de sacar una bola de la urna, anotar su numero y devolverla a la urna.El tipo demuestra obtenid es una muestra aleatoria con reposicicon.
+
+Para simular un muestreo de 15 bolas con reposiccion en una urna de 150 , haremos lo siguiente:
+
+```{r}
+sample(1:150,15,replace = TRUE)
+```
+
+Ahora veamos como hacerlo en un dataframe , que contiene 150 flores de 3 especies diferentes: setosa,versicolor& virginica.El dataframe contiene 5 variables: Longitud,Amplitud delmpetalo, lonitug y amplitud del sepalo y la especie de la flor:
+
+```{r}
+head(iris)
+```
+
+Si quisieramos una muestra de 30 flores con reposicion hariamos lo siguiente:
+
+```{r}
+flores_elejidas = sample(1:150,replace=TRUE)
+# ahora calculamos la subtabla de nde las flores
+muestra_flores =iris[flores_elejidas,]
+```
+
+Ahra mostraremos como quedo nuestra muestra:
+
+```{r}
+muestra_flores
+```
+
+## Muestreo aleatorio sin reposicion
+
+Para simular un muetreo de 21 bolar sin reposicion en una urna de 100 bolas hariamos lo siguiente:
+
+```{r}
+sample(1:159,21,replace = FALSE)
+```
+
+
+## Muestreo sistematico 
+
+Supongamos que los individuos de una poblacion vienen en una lista de forma ordenada, el muestreo sistematico consiste en tomarlos a intervalos contantes escogiendo al azar el primer individuo que esocgimos:
+
+veremos como hacer esto en R:
+
+Escogemos al azar nuestro numero para comenzar con los intervalos:
+
+
+```{r}
+(primera_flor = sample(1:150,1))
+```
+Hallamos el incremento que vamos a ir sumando a la primera etiqueta que escogimos:
+
+```{r}
+incremento = floor(150/21)
+incremento
+```
+
+Esto nos indica que tenemos que contar 7 turnos apartir de nuestro valor escogido , por lo que ahora escogeremos las flores para nuestra muestra:
+
+```{r}
+flores_elegidas = seq(from=primera_flor,by=incremento,length.out = 21)
+flores_elegidas
+```
+
+Podemos observar que nuestras muestras no estan en el intervalo del dataset por lo que debemos de cerrar el intervalo $[1:150]$
+
+```{r}
+flores_elegidas = flores_elegidas%%150
+flores_elegidas
+```
+
+Ahora calculamos la subtabla de flores de nuestra muestra:
+
+```{r}
+muestra_final = iris[flores_elegidas,]
+```
+
+Por ultimo vemos el resultado de nuestra muestra:
+
+```{r}
+muestra_final
+```
+Podemos observar que nuestra muestra cumple con el muestreo sistermatico, ya que fijamos un valor en este caso $119$ y le vamos sumando 7 y asi hasta llegar hasta la muestra numero 21.
+
+
+# Muestreo Sistematico.
+
+Este tipo de muestreo se utiliza cuando la poblacion esta clasificada en estratos que son de interes para la propiedad estudiada, para esto se toma una muestra aleatoria de cada estrato y se unene una muestra global.
+
+Para ver como hacer esto vamos a considerar que la tabla de datos de iris esta estratificada segun 3 estratos.Cada estrato esta compuesto por las 50 flores de la misma especia, hallaremos una muestra de tamaño 12 hallando tres muestras de tamaño 4 de cada especie ie estrato con reposicion y despues juntaremos las tres submuestras.
+
+Hallamos las flores de la muestra de cada una de las especies:
+
+```{r}
+muestra_setosa = sample(1:50,4,replace=TRUE)
+muestra_versicolor = sample(51:100,4,replace=TRUE)
+muestra_virginics = sample(101:150,4,replace=TRUE)
+```
+
+Ahora calculamos y mostramos la muestra estratificada juntando las tres muestras de cada especie:
+
+```{r}
+(muestra_total = rbind(iris[muestra_setosa,],iris[muestra_versicolor,],iris[muestra_virginics,]))
+```
+
+Podemos observar que se muesran 4 elementos de cada especie.
+
+## Muestreo por conglomerados:
+Una alternativa posible seria, en vez de extraer una muestra aleatoria de todos los individuso de la poblacion , escoger primero al azar unos subconjuntos en los que la poblacion esta divida.
+
+
+Supongamos que tenemos 100 bolas en una urna de las cuales se agrupan en 20 conglomerados de 5 bolas cada una.
+
+Para obtener una muestra aleatoria por conglomerados de tamaño 15 , escogeriamos al azar 3 conglomerados y la muestra estaria formada por sus bolas:
+
+Ejemplo:
+
+Consideremos el dataframe worldcoup que nos da informacion sobre 595 jugadores que participaron ene l mundial de soccer del 2010 y nos da la siguiente info:
+
+* Team.
+* Position.
+* Time.
+* Shots
+* Passes.
+* Tackles.
+* Saves.
+
+Cargemos el conjunto de datos:
+
+```{r}
+library(faraway)
+head(worldcup)
+```
+
+
+Supongamos que queremos calcular una muestra de tamaño indeterminado de los jugadores por conglomerados eligiendo como conglomerado a los paises que pertenecen:
+
+En la tabla hay un total de 32 paises , primero escogeremos 4 paises aleatoriamente y la muestra elegida seran los jugadores que pertencen a dichos paises:
+
+```{r}
+num_paises_elegidos = sample(1:32,4,replace=TRUE)
+paises_elegidos = unique(worldcup$Team)[num_paises_elegidos]
+```
+
+Ahora mostramos los paises elegidos:
+
+```{r}
+paises_elegidos
+```
+Ahora nos vamos a la muestra formada por los jugadores que pertenecen a los paises elgidos:
+
+```{r}
+muestra_total = worldcup[worldcup$Team%in%paises_elegidos,]
+
+```
+
+
+Mostramos los datos de los primeros 8 jugadores:
+
+```{r}
+head(muestra_total,8)
+```
+
+# Muestreo Poliepatico.
+
+Si una vez seleccionada una muestre de conglometados, tomamos de alguna manera una muestra aleatoria de cada uno de ellos, estaremos realizando un muestreo poliepatico.
+
+Para realizar un ejemplo con los datos anteriores , escogeremos una submuestra de 5 jugadores para cada uno de los 4 paises elegidos , obteniendo al final una muestra de tamaño 20 de todos los jugadores de la tabla de datos.
+
+Primero definimos las 4 subtablas de datos para los jugadores de cada pais elegido:
+
+```{r}
+worldcup_pais1 = worldcup[worldcup$Team==paises_elegidos[1],]
+worldcup_pais2 = worldcup[worldcup$Team==paises_elegidos[2],]
+worldcup_pais3 = worldcup[worldcup$Team==paises_elegidos[3],]
+worldcup_pais4 = worldcup[worldcup$Team==paises_elegidos[4],]
+```
+
+Ahora elegimos 5 jugadores de cada pais:
+
+```{r}
+jugadores_pais1 = sample(1:dim(worldcup_pais1)[1],5,replace=FALSE)
+jugadores_pais2 = sample(1:dim(worldcup_pais1)[1],5,replace=FALSE)
+jugadores_pais3 = sample(1:dim(worldcup_pais1)[1],5,replace=FALSE)
+jugadores_pais4 = sample(1:dim(worldcup_pais1)[1],5,replace=FALSE)
+```
+
+Por ultimo juntamos las submuestras obtenidas de los jugadores de cada pais:
+
+```{r}
+muestra_final_world = rbind(worldcup_pais1[jugadores_pais1,],
+                            worldcup_pais2[jugadores_pais2,],
+                            worldcup_pais3[jugadores_pais3,],
+                            worldcup_pais4[jugadores_pais4,])
+```
+
+Finalmente mostramos por pantalla:
+
+```{r}
+head(muestra_final_world,10)
+```
+
